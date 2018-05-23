@@ -2,7 +2,6 @@ language: node_js
 node_js: node
 deploy:
   provider: heroku
-  api_key: 9ae57b74-04ea-49c9-9946-5ae5e692761f
   app: enigmatic-caverns-14017
   on:
     repo: sobhit000/VideoConferenceApp
