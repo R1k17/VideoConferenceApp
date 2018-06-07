@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Video Conference</title>
+	<link rel="stylesheet" type="text/css" href="/main.css">
+	<script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
+	<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+</head>
+<body>
+<input id="txt-roomid" placeholder="Unique Room ID">
+<button id="btn-open-or-join-room">Open Or Join Room</button>
+<div id="local-video-container"></div>
+<hr>
+<div id="remote-video-container"></div>
+<script src="/video.js"></script>
+</body>
+</html>
