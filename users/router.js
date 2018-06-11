@@ -19,8 +19,8 @@ router.post('/', jsonParser, (req, res) => {
       code: 422,
       reason: 'ValidationError',
       message: 'Missing field',
-      location: missingField
-    });
+      location: missingField    
+    });    
   }
 
   const stringFields = ['username', 'password', 'email'];
@@ -90,7 +90,7 @@ router.post('/', jsonParser, (req, res) => {
         : `Must be at most ${sizedFields[tooLargeField]
           .max} characters long`,
       location: tooSmallField || tooLargeField
-    });
+    });    
   }
 
   let {username, password, email = ''} = req.body;
@@ -102,12 +102,7 @@ router.post('/', jsonParser, (req, res) => {
     .then(count => {
       if (count > 0) {
         // There is an existing user with the same username
-        return Promise.reject({
-          code: 422,
-          reason: 'ValidationError',
-          message: 'Username already taken',
-          location: 'username'
-        });
+        return Promise.reject('<script>(setTimeout(function redirect() {window.location.href=\'/api/users\'}, 3000))()</script><div class=message><p>Username Already Taken</p></div>');        
       }
       // If there is no existing user, hash the password
       return User.hashPassword(password);
@@ -118,9 +113,13 @@ router.post('/', jsonParser, (req, res) => {
         password: hash,
         email
       });
-    })
-    .then(user => {
-      return res.status(201).json(user.serialize());
+    })      
+    .then(user => {      
+       return res.send(
+        '<script>(setTimeout(function redirect() {window.location.href=\'/api/users\'}, 3000))()</script><div class=message><p>Successfully registered! You can now Login!</p></div>');
+       //res.redirect('/api/users');
+
+      //return res.status(201).json(user.serialize());
     })
     .catch(err => {
       // Forward validation errors on to the client, otherwise give a 500

@@ -9,6 +9,10 @@
   font-family: 'Open Sans', sans-serif;
 }
 
+#nav a {  
+  text-decoration: none;
+}
+
 .cotn_principal {
   position: absolute;
   width: 100%;

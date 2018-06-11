@@ -7,12 +7,16 @@
     
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-    <link rel="stylesheet" href="/css/style.css">      
+    <link rel="stylesheet" href="/css/style.css">          
   </head>
 
   <body>
+       
 
     <div class="cotn_principal">
+      <nav id="nav">
+        <a href="/">Home</a>
+      </nav>  
   <div class="cont_centrar">
 
     <div class="cont_login">
@@ -21,7 +25,7 @@
   <div class="cont_ba_opcitiy">
           
           <h2>LOGIN</h2>  
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> 
+    <p>Login to access the video conference</p> 
     <button class="btn_login" onclick="cambiar_login()">LOGIN</button>
     </div>
     </div>
@@ -30,7 +34,7 @@
     <h2>SIGN UP</h2>
 
     
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>Sign Up and start video conferencing!</p>
 
     <button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
   </div>
@@ -62,7 +66,7 @@
          <div class="cont_form_sign_up">
       <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
            <h2>SIGN UP</h2>
-      <input type="text" placeholder="Email" name="email" required/>
+      <input type="email" placeholder="Email" name="email" required/>
       <input type="text" placeholder="Username" name="username" required/>
       <input type="password" placeholder="Password" name="password" required/>
       <input type="password" placeholder="Confirm Password" name="matchpassword" required/>

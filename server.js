@@ -7,13 +7,6 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-// Here we use destructuring assignment with renaming so the two variables
-// called router (from ./users and ./auth) have different names
-// For example:
-// const actorSurnames = { james: "Stewart", robert: "De Niro" };
-// const { james: jimmy, robert: bobby } = actorSurnames;
-// console.log(jimmy); // Stewart - the variable name is jimmy, not james
-// console.log(bobby); // De Niro - the variable name is bobby, not robert
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
@@ -25,20 +18,18 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Logging
 app.use(morgan('common'));
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
+app.get('/', (req, res) => {  
+  res.sendFile(__dirname + '/views/index.html');  
 });
 
-app.get('/api/users/', (req, res) => {
-  res.sendFile(__dirname + '/views/login-sign-up.html');
+app.get('/api/users/', (req, res) => {  
+  res.sendFile(__dirname + '/views/login-sign-up.html');  
 });
 
-// CORS
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
@@ -53,21 +44,18 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
-//app.use('/api/auth/', authRouter);
+app.use('/api/auth/', authRouter);
 
-const jwtAuth = passport.authenticate('jwt', { session: false });
+const jwtAuth = passport.authenticate('jwt', {session: false, failureRedirect: '/api/users'});
 
-// A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  res.sendFile(__dirname + '/views/room.html');
+app.get('/api/auth/login', jwtAuth, (req, res) => {
+  res.sendFile(__dirname + '/views/room.html');  
 });
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
 });
 
-// Referenced by both runServer and closeServer. closeServer
-// assumes runServer has run and set `server` to a server object
 let server;
 
 function runServer(databaseUrl, port = PORT) {
