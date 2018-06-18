@@ -115,11 +115,10 @@ router.post('/', jsonParser, (req, res) => {
       });
     })      
     .then(user => {      
-       return res.send(
-        '<script>(setTimeout(function redirect() {window.location.href=\'/api/users\'}, 3000))()</script><div class=message><p>Successfully registered! You can now Login!</p></div>');
+       //return res.send('<script>(setTimeout(function redirect() {window.location.href=\'/api/users\'}, 3000))()</script><div class=message><p>Successfully registered! You can now Login!</p></div>');
        //res.redirect('/api/users');
 
-      //return res.status(201).json(user.serialize());
+      return res.status(201).json(user.serialize());
     })
     .catch(err => {
       // Forward validation errors on to the client, otherwise give a 500

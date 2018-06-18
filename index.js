@@ -23,11 +23,7 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {  
-  res.sendFile(__dirname + '/views/index.html');  
-});
-
-app.get('/api/users/', (req, res) => {  
-  res.sendFile(__dirname + '/views/login-sign-up.html');  
+  res.sendFile(__dirname + '/views/home.html');  
 });
 
 app.use(function (req, res, next) {
@@ -46,10 +42,17 @@ passport.use(jwtStrategy);
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
-const jwtAuth = passport.authenticate('jwt', {session: false, failureRedirect: '/api/users'});
+const jwtAuth = passport.authenticate('jwt', {session: false});
 
-app.get('/api/auth/login', jwtAuth, (req, res) => {
-  res.sendFile(__dirname + '/views/room.html');  
+app.get('/api/protected', jwtAuth, (req, res) => {
+  return res.json({
+    data: 'rosebud'
+  });  
+});
+
+app.put('/api/protected', jwtAuth, (req, res) => {
+  const updatedItem = User.update({username: req.body.username}, {$set:{email: req.body.email}})  
+  return res.status(201).json({updatedItem});  
 });
 
 app.use('*', (req, res) => {

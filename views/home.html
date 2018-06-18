@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title></title>
+
+<link rel="stylesheet" type="text/css" href="/home/index.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="shortcut icon" href="#">
+<script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
+<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+  <div class="home">
+    <header id="showcase">      
+      <h1>Welcome To The Beach</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi officiis ipsum officia numquam expedita ullam.</p>
+      <a href="#" class="button">Read More</a>      
+    </header>  
+    <section id="section-a">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit minus impedit maxime, quae soluta quis cumque perferendis! Doloribus quaerat, placeat iste facere, aspernatur ex cum veritatis laudantium, officia, non porro exercitationem incidunt quis dolore? Officia ex accusamus expedita optio, voluptatem minus? In maiores omnis aperiam earum ab molestiae beatae laborum blanditiis incidunt, delectus dolor, id voluptates optio aspernatur aliquam saepe atque labore? Tempore reprehenderit ab ipsam perspiciatis ut, provident perferendis sapiente in numquam blanditiis, enim, illo error nulla incidunt quos quidem ratione repellat ipsa molestias veritatis? Mollitia, fugit dolore commodi porro repudiandae atque, eos, ipsum quam culpa fuga deleniti quae.</p>
+    </section>    
+  </div>
+  
+   <div class="login-page">
+    <div class="new-user"></div>
+  <div class="form">
+    <form class="register-form">
+      <input type="text" placeholder="username" class="usernameNew" required />
+      <input type="password" placeholder="password" class="passwordNew" required />
+      <input type="email" placeholder="email address" class="emailNew" required />
+      <button type="submit">create</button>
+      <p class="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <form class="login-form">
+      <input type="text" placeholder="username" class="username" required />
+      <input type="password" placeholder="password" class="password" required />
+      <button type="submit">login</button>
+      <p class="message">Not registered? <a href="#">Create an account</a></p>
+    </form>
+  </div>
+</div>
+
+<div class="results"></div>
+<div class="video-room">
+  <div class="video-room-button">
+    <p class="share-room">Share this room token to invite people into this room OR enter your room token if you have one</p>
+    <input id="txt-roomid" placeholder="Unique Room ID">
+    <button id="btn-open-or-join-room" class="button">Open Or Join Room</button>
+  </div>
+  <div id="remote-video-container"></div>
+  <hr>
+  <div id="local-video-container"></div>
+  <div class="profile"></div>
+  <div class="profile-new"></div>
+</div>
+<div class="protected"></div>
+<script src="/home/index.js"></script>
+</body>
+</html>

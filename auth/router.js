@@ -15,11 +15,18 @@ const createAuthToken = function(user) {
   });
 };
 
-const localAuth = passport.authenticate('local', {session: false, failureRedirect: '/api/users'});
+const localAuth = passport.authenticate('local', {session: false});
 router.use(bodyParser.json());
 // The user provides a username and password to login
 router.post('/login', localAuth, (req, res) => {  
-  res.sendFile(__dirname + '/room.html');
+  const authToken = createAuthToken(req.user.serialize());
+  const userDisplay = req.user.serialize();   
+  return res.json({authToken, userDisplay});
+});
+
+router.put('/update', (req, res) => { 
+  const updatedItem = User.update({username: req.body.username}, {$set:{email: req.body.email}})  
+  return res.status(201).json({updatedItem});
 });
 
 module.exports = {router};
