@@ -66,20 +66,15 @@ function getTokenFromApi(username, password, callback) {
     dataType: 'json',
     type: 'POST',
     success: callback,
-    error: error
+    error: loginError
   };
   $.ajax(settings);
 }
 
-function error () {  
-  $('.results').show();
-  $('.results').html(`<h2>Check your username/password and try again!</h2>`);  
-}
-
-function displayVideoRoom(data, authToken) {
+function displayVideoRoom(data) {
   $('.video-room').show();
   $('.profile').html(`
-    <h3>Welcome ${data.userDisplay.username}</h3>    
+    <h3>Welcome ${data.userDisplay.username}</h3>        
     <button class="button edit-profile">Update Email</button>
     <button type="submit" class="button delete-profile">Delete Account</button>    
     `
@@ -96,27 +91,62 @@ function displayVideoRoom(data, authToken) {
     `)
 
    $('.update-profile').on('click', function(){
-      const username = data.userDisplay.username      
+      event.preventDefault();
+      const authToken = data.authToken;
+      const username = data.userDisplay.username;      
       const email = $('.emailNewUpdate').val();      
       updateProfile(username, email, authToken, displayUpdatedProfile);
    })     
     })
   });
+
+  $('.delete-profile').on('click', function (){
+    event.preventDefault();
+    const authToken = data.authToken;
+    const username = data.userDisplay.username;
+    deleteProfile(username, authToken, displayDeletedProfile);
+  })
+}
+
+function displayDeletedProfile(data) {  
+  location.reload();
 }
 
 function displayUpdatedProfile(data) {
-  $('.profile-new').html(`Your new email is ${data.email}`)
+  console.log(data); 
+  $('.profile-new').html(`Your email is updated`);
+  $('.edit-profile').attr('disabled', 'disabled');  
 }
+
+function deleteProfile(username, authToken, callback) {
+ const settings = {
+    url: '/api/protected/',
+    data: {      
+      username: `${username}`
+    },
+    headers: {      
+      authorization: `Bearer ${authToken}`     
+   },
+    dataType: 'json',
+    type: 'DELETE',
+    success: callback,
+    error: error
+  };
+  $.ajax(settings); 
+}
+
+
+
 
 function updateProfile(username, email, authToken, callback) {
  const settings = {
-    url: '/api/protected',
+    url: '/api/protected/',
     data: {      
       username: `${username}`,      
-      email: `${email}`,
+      email: `${email}`
+    },
     headers: {      
-      authorization: `Bearer ${authToken}`
-    }, 
+      authorization: `Bearer ${authToken}`     
    },
     dataType: 'json',
     type: 'PUT',
@@ -126,34 +156,15 @@ function updateProfile(username, email, authToken, callback) {
   $.ajax(settings); 
 }
 
+function error(error) {
+  console.log(error);  
+}
+
 function displayApiData(data){
   var authToken = `${data.authToken}`
   $('.login-page').hide();
   displayVideoRoom(data, authToken);
-  
-  //accessProtectedRoute(authToken, displaySecretData);
-  //$('.results').html(authToken);
 }
-
-function displaySecretData (data) {  
-  $('.protected').html(`${data.data}`);
-}
-
-function accessProtectedRoute(authToken, callback) {
-  const settings = {
-    url: '/api/protected/',
-    headers: {      
-      authorization: `Bearer ${authToken}`
-    },
-    dataType: 'json',
-    type: 'get',
-    success: callback,
-    error: error
-  };
-  $.ajax(settings);
-}
-
-
 
 function displayNewUserData(data){
   $('.new-user').html(`${data.username} is registered! You can now login`);
@@ -170,9 +181,19 @@ function createNewUser(username, password, email, callback) {
     dataType: 'json',
     type: 'POST',
     success: callback,
-    error: error
+    error: newUserError
   };
   $.ajax(settings);
+}
+
+function loginError (error) {  
+  $('.new-user').show();  
+  $('.new-user').html(`<h3>Check your username/password and try again!</h3>`);  
+}
+
+function newUserError (error) {  
+  $('.new-user').show();  
+  $('.new-user').html(`<h2>${error.responseJSON.message}</h2>`);  
 }
 
 function watchSignUp() {
@@ -187,7 +208,6 @@ function watchSignUp() {
     createNewUser(username, password, email, displayNewUserData);
   });
 }
-
 
 function watchSubmit () {
   $('.login-form').on('submit', function (event){

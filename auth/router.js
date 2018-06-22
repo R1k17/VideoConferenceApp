@@ -24,9 +24,4 @@ router.post('/login', localAuth, (req, res) => {
   return res.json({authToken, userDisplay});
 });
 
-router.put('/update', (req, res) => { 
-  const updatedItem = User.update({username: req.body.username}, {$set:{email: req.body.email}})  
-  return res.status(201).json({updatedItem});
-});
-
 module.exports = {router};

@@ -102,7 +102,12 @@ router.post('/', jsonParser, (req, res) => {
     .then(count => {
       if (count > 0) {
         // There is an existing user with the same username
-        return Promise.reject('<script>(setTimeout(function redirect() {window.location.href=\'/api/users\'}, 3000))()</script><div class=message><p>Username Already Taken</p></div>');        
+        return Promise.reject({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Username already taken',
+          location: 'username'
+        });        
       }
       // If there is no existing user, hash the password
       return User.hashPassword(password);
@@ -114,10 +119,7 @@ router.post('/', jsonParser, (req, res) => {
         email
       });
     })      
-    .then(user => {      
-       //return res.send('<script>(setTimeout(function redirect() {window.location.href=\'/api/users\'}, 3000))()</script><div class=message><p>Successfully registered! You can now Login!</p></div>');
-       //res.redirect('/api/users');
-
+    .then(user => {
       return res.status(201).json(user.serialize());
     })
     .catch(err => {

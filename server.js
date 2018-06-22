@@ -10,6 +10,8 @@ const jsonParser = bodyParser.json();
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
+const {User} = require('./users/models');
+
 mongoose.Promise = global.Promise;
 
 const { PORT, DATABASE_URL } = require('./config');
@@ -51,9 +53,26 @@ app.get('/api/protected', jwtAuth, (req, res) => {
 });
 
 app.put('/api/protected', jwtAuth, (req, res) => {
-  const updatedItem = User.update({username: req.body.username}, {$set:{email: req.body.email}})  
-  return res.status(201).json({updatedItem});  
+  console.log(req.body.username);
+  console.log(req.body.email);
+  User
+    .findOneAndUpdate({username: req.body.username}, {$set: {email: req.body.email}}, { new: true })
+    .then(() => {
+      return res.status(204).end();
+    })    
+    .catch(err => res.status(500).json({ message: 'Something went wrong' }));      
 });
+
+app.delete('/api/protected', jwtAuth, (req, res) => {
+  console.log(req.body.username);  
+  User
+    .findOneAndRemove({username: req.body.username}, {$set: {email: req.body.email}})
+    .then(() => {
+      return res.status(204).end();
+    })    
+    .catch(err => res.status(500).json({ message: 'Something went wrong' }));      
+});
+
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
