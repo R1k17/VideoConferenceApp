@@ -1,5 +1,3 @@
-//var authToken;
-//var username;
 var connection = new RTCMultiConnection();
 
 connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
@@ -134,9 +132,6 @@ function deleteProfile(username, authToken, callback) {
   };
   $.ajax(settings); 
 }
-
-
-
 
 function updateProfile(username, email, authToken, callback) {
  const settings = {
