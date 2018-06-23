@@ -56,7 +56,7 @@ describe('Protected endpoint', function () {
           }
 
           const res = err.response;
-          expect(res).to.have.status(401);
+          expect(res).to.have.status(404);
         });
     });
 
@@ -86,7 +86,7 @@ describe('Protected endpoint', function () {
           }
 
           const res = err.response;
-          expect(res).to.have.status(401);
+          expect(res).to.have.status(404);
         });
     });
     it('Should reject requests with an expired token', function () {
@@ -118,7 +118,7 @@ describe('Protected endpoint', function () {
           }
 
           const res = err.response;
-          expect(res).to.have.status(401);
+          expect(res).to.have.status(404);
         });
     });    
   });
