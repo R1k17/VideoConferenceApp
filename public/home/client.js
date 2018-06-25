@@ -47,14 +47,6 @@ $('.button').on('click', function () {
   $('.nav').show();
 });
 
-$('#btn-open-or-join-room').on('click', function (event) {
-  event.preventDefault();
-  $('.profile').hide();
-  $('.share-room').hide();
-  $('.edit-profile').hide();
-  $('.login-page').hide();
-});
-
 function getTokenFromApi(username, password, callback) {
   const settings = {
     url: '/api/auth/login',
@@ -108,7 +100,15 @@ function displayVideoRoom(data) {
     const authToken = data.authToken;
     const username = data.userDisplay.username;
     deleteProfile(username, authToken, displayDeletedProfile);
-  })
+  });
+  $('#btn-open-or-join-room').on('click', function (event) {
+  event.preventDefault();
+  $('.profile').html(`<h4>${data.userDisplay.username}<h4>`);
+  $('.share-room').hide();
+  $('.edit-profile').hide();
+  $('.login-page').hide();
+  $('#btn-open-or-join-room').html(`Your roomID`);
+});
 }
 
 function displayDeletedProfile(data) {  
