@@ -1,0 +1,25 @@
+.button {
+	text-align: center;
+	margin-top: 10px;
+}
+
+#local-video-container video {	
+	width: 20%;
+	background: #ccc;
+	border: 10px solid #ddd;
+	margin: 0 auto;	
+}
+
+#remote-video-container video {
+	width: 90%;
+	background: #ccc;
+	border: 10px solid #ddd;
+	margin: 0 auto;	
+}
+#nav {
+	text-align: center;
+}
+
+#nav a {
+	text-decoration: none;	
+}
