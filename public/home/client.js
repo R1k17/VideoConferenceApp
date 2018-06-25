@@ -44,6 +44,7 @@ $('.message a').click(function(){
 $('.button').on('click', function () {
   $('.home').hide();  
   $('.login-page').show();
+  $('.nav').show();
 });
 
 $('#btn-open-or-join-room').on('click', function (event) {
@@ -72,21 +73,28 @@ function getTokenFromApi(username, password, callback) {
 function displayVideoRoom(data) {
   $('.video-room').show();
   $('.profile').html(`
-    <h3>Welcome ${data.userDisplay.username}</h3>        
-    <button class="button edit-profile">Update Email</button>
-    <button type="submit" class="button delete-profile">Delete Account</button>    
-    `
-    );
-  $('.edit-profile').on('click', function (event) {
-    event.preventDefault();    
-    $('.profile-new').toggle(function () {
-      $('.profile-new').html(`    
-    <form class="form register-form-new">      
-      <input type="email" value="current email: ${data.userDisplay.email}" disabled />
-      <input type="email" placeholder="new email" class="emailNewUpdate" required />      
-      <button type="submit" class="update-profile">Update Email</button>            
-    </form>
-    `)
+         <script>
+          $(document).ready(function(){
+            $('.collapsible').collapsible();
+          });
+          </script>
+          <h4>Welcome ${data.userDisplay.username}</h4>
+          <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">update</i>Update Email</div>
+      <div class="collapsible-body"><span><form class="form register-form-new">      
+          <input type="email" value="current email: ${data.userDisplay.email}" disabled />
+          <input type="email" placeholder="new email" class="emailNewUpdate" required />      
+          <button type="submit" class="update-profile">Update Email</button>            
+        </form></span>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">delete</i>Delete Account</div>
+      <div class="collapsible-body"><span><button type="submit" class="button delete-profile">Delete Account</button></span></div>
+    </li>    
+  </ul>
+  `)
 
    $('.update-profile').on('click', function(){
       event.preventDefault();
@@ -94,10 +102,7 @@ function displayVideoRoom(data) {
       const username = data.userDisplay.username;      
       const email = $('.emailNewUpdate').val();      
       updateProfile(username, email, authToken, displayUpdatedProfile);
-   })     
-    })
-  });
-
+   })
   $('.delete-profile').on('click', function (){
     event.preventDefault();
     const authToken = data.authToken;
@@ -206,8 +211,7 @@ function watchSignUp() {
 
 function watchSubmit () {
   $('.login-form').on('submit', function (event){
-    event.preventDefault();
-    $('.results').hide();
+    event.preventDefault();    
     const username = $('.username').val();
     const password = $('.password').val();
     $('.username').val('');
@@ -215,5 +219,6 @@ function watchSubmit () {
     getTokenFromApi(username, password, displayApiData);    
   });
 }
+
 watchSubmit();
 watchSignUp(); 
