@@ -44,7 +44,7 @@ $('.message a').click(function(){
 $('.button').on('click', function () {
   $('.home').hide();  
   $('.login-page').show();
-  $('.nav').show();
+  $('.navbar-fixed').show();
 });
 
 function getTokenFromApi(username, password, callback) {
@@ -64,46 +64,55 @@ function getTokenFromApi(username, password, callback) {
 
 function displayVideoRoom(data) {
   $('.video-room').show();
+  $('#nav-username').html(`Howdy ${data.userDisplay.username}!`);
+  $('#nav-logout').html(`Logout`);  
   $('.profile').html(`
-         <script>
-          $(document).ready(function(){
-            $('.collapsible').collapsible();
-          });
-          </script>
-          <h4>Welcome ${data.userDisplay.username}</h4>
-          <ul class="collapsible">
-    <li>
-      <div class="collapsible-header"><i class="material-icons">update</i>Update Email</div>
-      <div class="collapsible-body"><span><form class="form register-form-new">      
-          <input type="email" value="current email: ${data.userDisplay.email}" disabled />
+    <script>
+      $(document).ready(function(){
+      $('.modal').modal();      
+      });
+    </script>
+    <a href="#modal1" class="btn waves-effect modal-trigger">Update Email</a>
+    <a href="#modal2" class="btn waves-effect red modal-trigger">Delete Account</a>
+    <div id="modal1" class="modal teal lighten-2">
+      <div class="modal-content">
+        <h5>Update Email</h5>
+        <form class="form register-form-new">      
+          <input value="current email: ${data.userDisplay.email}" disabled />
           <input type="email" placeholder="new email" class="emailNewUpdate" required />      
           <button type="submit" class="update-profile">Update Email</button>            
-        </form></span>
+        </form>
       </div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">delete</i>Delete Account</div>
-      <div class="collapsible-body"><span><button type="submit" class="button delete-profile">Delete Account</button></span></div>
-    </li>    
-  </ul>
-  `)
-
-   $('.update-profile').on('click', function(){
+      <div class="modal-footer teal lighten-2">
+        <a href="#!" class="modal-close waves-effect waves-green btn red">Cancel</a>
+      </div>
+    </div>
+    <div id="modal2" class="modal teal lighten-2">
+      <div class="modal-content">
+        <h4>Your account will be deleted!</h4>
+        <button type="submit" class="btn red delete-profile">Delete Account</button>
+      </div>
+      <div class="modal-footer teal lighten-2">
+        <a href="#!" class="modal-close waves-effect teal darken-4 btn">Cancel</a>
+      </div>
+    </div>
+  `);
+   $('.register-form-new').submit(function(event){
       event.preventDefault();
       const authToken = data.authToken;
       const username = data.userDisplay.username;      
       const email = $('.emailNewUpdate').val();      
       updateProfile(username, email, authToken, displayUpdatedProfile);
-   })
-  $('.delete-profile').on('click', function (){
+   });
+  $('.delete-profile').on('click', function (event){
     event.preventDefault();
     const authToken = data.authToken;
     const username = data.userDisplay.username;
     deleteProfile(username, authToken, displayDeletedProfile);
-  });
+  });  
   $('#btn-open-or-join-room').on('click', function (event) {
   event.preventDefault();
-  $('.profile').html(`<h4>${data.userDisplay.username}<h4>`);
+  $('.profile').hide();
   $('.share-room').hide();
   $('.edit-profile').hide();
   $('.login-page').hide();
@@ -117,8 +126,7 @@ function displayDeletedProfile(data) {
 
 function displayUpdatedProfile(data) {
   console.log(data); 
-  $('.profile-new').html(`Your email is updated`);
-  $('.edit-profile').attr('disabled', 'disabled');  
+  $('.register-form-new').html(`Your email has been updated!`);  
 }
 
 function deleteProfile(username, authToken, callback) {
@@ -151,13 +159,13 @@ function updateProfile(username, email, authToken, callback) {
     dataType: 'json',
     type: 'PUT',
     success: callback,
-    error: error
+    error: updateProfileError
   };
   $.ajax(settings); 
 }
 
-function error(error) {
-  console.log(error);  
+function updateProfileError(error) {
+  $('.register-form-new').html(`Something went wrong!`);    
 }
 
 function displayApiData(data){
@@ -188,7 +196,7 @@ function createNewUser(username, password, email, callback) {
 
 function loginError (error) {  
   $('.new-user').show();  
-  $('.new-user').html(`<h3>Check your username/password and try again!</h3>`);  
+  $('.new-user').html(`<div class="card-panel teal lighten-2">Check your username/password and try again!</div>`);  
 }
 
 function newUserError (error) {  
