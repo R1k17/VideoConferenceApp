@@ -60,7 +60,7 @@ app.put('/api/protected', jwtAuth, (req, res) => {
 app.delete('/api/protected', jwtAuth, (req, res) => {
   console.log(req.body.username);  
   User
-    .findOneAndRemove({username: req.body.username}, {$set: {email: req.body.email}})
+    .findOneAndRemove({username: req.body.username})
     .then(() => {
       return res.status(204).end();
     })    

@@ -15,6 +15,8 @@ connection.sdpConstraints.mandatory = {
 var localVideosContainer = document.getElementById('local-video-container');
 var remoteVideosContainer = document.getElementById('remote-video-container');
 
+var _data = {}; 
+
 connection.onstream = function(event) {
   var video = event.mediaElement;
 
@@ -90,7 +92,7 @@ function displayVideoRoom(data) {
     <div id="modal2" class="modal teal lighten-2">
       <div class="modal-content">
         <h4>Your account will be deleted!</h4>
-        <button type="submit" class="btn red delete-profile">Delete Account</button>
+        <button type="submit" class="btn red" id="delete-profile">Delete Account</button>
       </div>
       <div class="modal-footer teal lighten-2">
         <a href="#!" class="modal-close waves-effect teal darken-4 btn">Cancel</a>
@@ -104,7 +106,7 @@ function displayVideoRoom(data) {
       const email = $('.emailNewUpdate').val();      
       updateProfile(username, email, authToken, displayUpdatedProfile);
    });
-  $('.delete-profile').on('click', function (event){
+  $('#delete-profile').on('click', function (event){
     event.preventDefault();
     const authToken = data.authToken;
     const username = data.userDisplay.username;
@@ -141,9 +143,13 @@ function deleteProfile(username, authToken, callback) {
     dataType: 'json',
     type: 'DELETE',
     success: callback,
-    error: error
+    error: deleteError
   };
   $.ajax(settings); 
+}
+
+function deleteError(error) {
+  console.log(error);
 }
 
 function updateProfile(username, email, authToken, callback) {
@@ -171,11 +177,14 @@ function updateProfileError(error) {
 function displayApiData(data){
   var authToken = `${data.authToken}`
   $('.login-page').hide();
+  _data = data;
   displayVideoRoom(data, authToken);
 }
 
 function displayNewUserData(data){
   $('.new-user').html(`${data.username} is registered! You can now login`);
+  $('.register-form').hide();
+  $('.login-form').show();
 }
 
 function createNewUser(username, password, email, callback) {
