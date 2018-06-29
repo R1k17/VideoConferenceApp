@@ -178,3 +178,7 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
+
+#close-room-btn {
+  display: none;
+}

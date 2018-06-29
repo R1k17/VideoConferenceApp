@@ -76,13 +76,12 @@ function displayVideoRoom(data) {
     <a href="#modal2" class="btn waves-effect red modal-trigger">Delete Account</a>
     <div id="modal1" class="modal teal lighten-2">
       <div class="modal-content">
-        <h5>Update Email</h5>
+        <h5 id="change-email-message">Update Email</h5>
         <form class="form register-form-new">      
           <input id="current-email" value="current email: ${data.userDisplay.email}" disabled />
           <input id="new-email" type="email" placeholder="new email" class="emailNewUpdate" required />      
           <button type="submit" class="update-profile">Update Email</button>            
         </form>
-        <div id="change-email-message"></div>
       </div>
       <div class="modal-footer teal lighten-2">
         <a href="#!" class="modal-close waves-effect waves-green btn red">Close</a>
@@ -117,8 +116,31 @@ function displayVideoRoom(data) {
   $('.share-room').hide();
   $('.edit-profile').hide();
   $('.login-page').hide();
+  $('#close-room-btn').show();
   $('#btn-open-or-join-room').html(`Your roomID`);
+      $('#close-room-btn').on('click', function(){
+        connection.attachStreams.forEach(function(localStream) {
+        localStream.stop();
+      });
+    connection.close();
+    $('.profile').show();
+    $('.share-room').show();
+    $('.login-page').hide();
+    $('#btn-open-or-join-room').prop('disabled', false);
+    $('#btn-open-or-join-room').html(`Open Or Join Room`);
+    $('#close-room-btn').hide();
+  });
 });
+ $('#nav-logout').on('click', function(){
+    connection.attachStreams.forEach(function(localStream) {
+    localStream.stop();
+  });
+    connection.close();  
+  $('.video-room').hide();
+  $('.login-page').show();
+  $('#nav-username').html('');
+  $('#nav-logout').html('');
+ }); 
 }
 
 function displayDeletedProfile(data) {  
