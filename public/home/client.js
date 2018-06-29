@@ -13,9 +13,7 @@ connection.sdpConstraints.mandatory = {
 };
 
 var localVideosContainer = document.getElementById('local-video-container');
-var remoteVideosContainer = document.getElementById('remote-video-container');
-
-var _data = {}; 
+var remoteVideosContainer = document.getElementById('remote-video-container'); 
 
 connection.onstream = function(event) {
   var video = event.mediaElement;
@@ -67,7 +65,7 @@ function getTokenFromApi(username, password, callback) {
 function displayVideoRoom(data) {
   $('.video-room').show();
   $('#nav-username').html(`Howdy ${data.userDisplay.username}!`);
-  $('#nav-logout').html(`Logout`);  
+  $('#nav-logout').html(`Logout`);    
   $('.profile').html(`
     <script>
       $(document).ready(function(){
@@ -80,13 +78,14 @@ function displayVideoRoom(data) {
       <div class="modal-content">
         <h5>Update Email</h5>
         <form class="form register-form-new">      
-          <input value="current email: ${data.userDisplay.email}" disabled />
-          <input type="email" placeholder="new email" class="emailNewUpdate" required />      
+          <input id="current-email" value="current email: ${data.userDisplay.email}" disabled />
+          <input id="new-email" type="email" placeholder="new email" class="emailNewUpdate" required />      
           <button type="submit" class="update-profile">Update Email</button>            
         </form>
+        <div id="change-email-message"></div>
       </div>
       <div class="modal-footer teal lighten-2">
-        <a href="#!" class="modal-close waves-effect waves-green btn red">Cancel</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn red">Close</a>
       </div>
     </div>
     <div id="modal2" class="modal teal lighten-2">
@@ -95,7 +94,7 @@ function displayVideoRoom(data) {
         <button type="submit" class="btn red" id="delete-profile">Delete Account</button>
       </div>
       <div class="modal-footer teal lighten-2">
-        <a href="#!" class="modal-close waves-effect teal darken-4 btn">Cancel</a>
+        <a href="#!" class="modal-close waves-effect teal darken-4 btn">Close</a>
       </div>
     </div>
   `);
@@ -126,9 +125,11 @@ function displayDeletedProfile(data) {
   location.reload();
 }
 
-function displayUpdatedProfile(data) {
-  console.log(data); 
-  $('.register-form-new').html(`Your email has been updated!`);  
+function displayUpdatedProfile(data) {   
+  const email = $('#new-email').val();  
+  $('#new-email').val('');
+  $('#change-email-message').html(`Your email has been updated to ${email}`);
+  $('#current-email').val(`current email: ${email}`);
 }
 
 function deleteProfile(username, authToken, callback) {
@@ -177,7 +178,6 @@ function updateProfileError(error) {
 function displayApiData(data){
   var authToken = `${data.authToken}`
   $('.login-page').hide();
-  _data = data;
   displayVideoRoom(data, authToken);
 }
 
