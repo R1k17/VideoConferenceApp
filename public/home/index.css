@@ -1,9 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .login-page {
-  width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
+  margin-top: 20px;
+  display: none
 }
 .form {
   position: relative;
@@ -67,22 +66,14 @@
   margin-top: 10px;
 }
 
-.login-page {
-  display: none;
-}
-
 .new-user {
+  display: none;
   text-align: center;
-  display: ;
 }
 
 *{
   margin:0;
   padding:0;
-}
-
-body, html {
-    height: 100%;
 }
 
 body {
@@ -175,10 +166,16 @@ body {
 }
 
 video {
+  max-width: 100%;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
 }
 
 #close-room-btn {
+  display: none;
+}
+
+.home {
   display: none;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
    <title>Video App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,11 +25,160 @@
     </section>    
   </div>
 
+  <div class="home2">
+    <nav class="teal darken-3" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="javascript:history.go(0)" class="brand-logo">Home</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#" id="nav-username"></a></li>
+        <li><a href="#" id="nav-logout"></a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav teal lighten-2">        
+        <li><a href="#" id="sidenav-username"></a></li>        
+        <li><a class="sidenav-close waves-effect teal darken-4 btn" href="#" id="sidenav-logout"></a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">Starter Template</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+      </div>
+      <div class="row center">
+        <a href="#" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+
+      <div class="row">
+        <div class="home-hide">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+            <h5 class="center">Speeds up development</h5>
+
+            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+            <h5 class="center">User Experience Focused</h5>
+
+            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+            <h5 class="center">Easy to work with</h5>
+
+            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="col s12 m4">
+          <div class="login-page">
+          <div class="new-user card-panel teal lighten-2"></div>
+            <div class="form">
+              <form class="register-form">
+                <input type="text" placeholder="username" class="usernameNew" required />
+                <input type="password" placeholder="password" class="passwordNew" required />
+                <input type="email" placeholder="email address" class="emailNew" required />
+                <button type="submit" class="button">create</button>
+                <p class="message">Already registered? <a href="#">Sign In</a></p>
+              </form>
+              <form class="login-form">
+                <input type="text" placeholder="username" class="username" required />
+                <input type="password" placeholder="password" class="password" required />
+                <button type="submit" class="button">login</button>
+                <p class="message">Not registered? <a href="#">Create an account</a></p>
+              </form>
+            </div>
+      </div>
+      </div>
+
+      <div class="col s12 m4">
+        <div class="video-room">
+          <form class="form">
+            <p class="share-room">Share this room token to invite people into this room OR enter your room token if you have one</p>    
+            <input id="txt-roomid" placeholder="Unique Room ID">
+            <button id="btn-open-or-join-room" class="button">Open Or Join Room</button>
+            <button id="close-room-btn" class="button red">Click to Disconnect</button>
+          </form>    
+          <div class="profile"></div>
+          <div class="profile-new"></div>    
+          <div id="remote-video-container"></div>
+          <hr>
+          <div id="local-video-container"></div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+    <br><br>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Company Bio</h5>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+  </div>
     
-  <nav class="navbar-fixed teal darken-3">
+  <!--nav class="navbar-fixed teal darken-3">
     <div class="container">
       <div class="nav-wrapper"> 
-        <a href="javascript:history.go(0)" class="brand-logo center">Home</a>
+        <ul class="brand-logo center"><li><a href="javascript:history.go(0)">Home</a></li></ul>
         <ul class="left"><li><a href="#" id="nav-username"></a></li></ul>
         <ul class="right"><li><a href="#" id="nav-logout"></a></li></ul>      
       </div>
@@ -63,12 +212,12 @@
         <button id="close-room-btn" class="button red">Click to Disconnect</button>
       </form>    
     <div class="profile"></div>
-    <div class="profile-new"></div>
-    <div id="remote-video-container" class="responsive-video"></div>
+    <div class="profile-new"></div>    
+    <div id="remote-video-container"></div>
     <hr>
-    <div id="local-video-container" class="responsive-video"></div>
+    <div id="local-video-container"></div>
   </div>
-  </div>
+  </div !-->
 <script src="/home/client.js"></script>
 </body>
 </html>

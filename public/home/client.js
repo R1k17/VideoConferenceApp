@@ -41,10 +41,11 @@ $('.message a').click(function(){
    $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
 });
 
-$('.button').on('click', function () {
-  $('.home').hide();  
+$('#download-button').on('click', function () {
+  $('#index-banner').hide();
+  $('.home-hide').hide();
+  $('.page-footer').hide();  
   $('.login-page').show();
-  $('.navbar-fixed').show();
 });
 
 function getTokenFromApi(username, password, callback) {
@@ -65,11 +66,14 @@ function getTokenFromApi(username, password, callback) {
 function displayVideoRoom(data) {
   $('.video-room').show();
   $('#nav-username').html(`Howdy ${data.userDisplay.username}!`);
-  $('#nav-logout').html(`Logout`);    
+  $('#sidenav-username').html(`Howdy ${data.userDisplay.username}!`);
+  $('#nav-logout').html(`Logout`);
+  $('#sidenav-logout').html(`Logout`);    
   $('.profile').html(`
     <script>
       $(document).ready(function(){
-      $('.modal').modal();      
+      $('.modal').modal();
+      $('.sidenav').sidenav();      
       });
     </script>
     <a href="#modal1" class="btn waves-effect modal-trigger">Update Email</a>
@@ -89,6 +93,7 @@ function displayVideoRoom(data) {
     </div>
     <div id="modal2" class="modal teal lighten-2">
       <div class="modal-content">
+        <div id="delete-error"></div>
         <h4>Your account will be deleted!</h4>
         <button type="submit" class="btn red" id="delete-profile">Delete Account</button>
       </div>
@@ -139,8 +144,25 @@ function displayVideoRoom(data) {
   $('.video-room').hide();
   $('.login-page').show();
   $('#nav-username').html('');
+  $('#sidenav-username').html('');
   $('#nav-logout').html('');
- }); 
+  $('#sidenav-logout').html('');
+  $('.new-user').html('');
+ });
+ $('#sidenav-logout').on('click', function(){
+    connection.attachStreams.forEach(function(localStream) {
+    localStream.stop();
+  });
+    connection.close();  
+  $('.video-room').hide();
+  $('.login-page').show();
+  $('#nav-username').html('');
+  $('#sidenav-username').html('');
+  $('#nav-logout').html('');
+  $('#sidenav-logout').html('');
+  $('.new-user').html('');
+ });
+
 }
 
 function displayDeletedProfile(data) {  
@@ -172,7 +194,7 @@ function deleteProfile(username, authToken, callback) {
 }
 
 function deleteError(error) {
-  console.log(error);
+  $('#delete-error').html(`Something went wrong!`);
 }
 
 function updateProfile(username, email, authToken, callback) {
@@ -204,6 +226,7 @@ function displayApiData(data){
 }
 
 function displayNewUserData(data){
+  $('.new-user').show();
   $('.new-user').html(`${data.username} is registered! You can now login`);
   $('.register-form').hide();
   $('.login-form').show();
@@ -227,12 +250,12 @@ function createNewUser(username, password, email, callback) {
 
 function loginError (error) {  
   $('.new-user').show();  
-  $('.new-user').html(`<div class="card-panel teal lighten-2">Check your username/password and try again!</div>`);  
+  $('.new-user').html(`Check your username/password and try again!`);  
 }
 
 function newUserError (error) {  
   $('.new-user').show();  
-  $('.new-user').html(`<h2>${error.responseJSON.message}</h2>`);  
+  $('.new-user').html(`${error.responseJSON.message}`);  
 }
 
 function watchSignUp() {
