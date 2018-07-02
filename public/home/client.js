@@ -140,6 +140,7 @@ function displayVideoRoom(data) {
   });
 });
  $('#nav-logout').on('click', function(){
+    event.preventDefault();
     connection.attachStreams.forEach(function(localStream) {
     localStream.stop();
   });
@@ -162,6 +163,7 @@ function displayVideoRoom(data) {
     $('.new-user').html('');
    });
  $('#sidenav-logout').on('click', function(){
+    event.preventDefault();  
     connection.attachStreams.forEach(function(localStream) {
     localStream.stop();
   });
