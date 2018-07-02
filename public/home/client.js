@@ -126,10 +126,12 @@ function displayVideoRoom(data) {
   $('.login-page').hide();
   $('#close-room-btn').show();
   $('#btn-open-or-join-room').html(`Your roomID`);
-      $('#close-room-btn').on('click', function(){
-        connection.attachStreams.forEach(function(localStream) {
-        localStream.stop();
-      });
+  $('#close-room-btn').on('click', function(event){
+    event.preventDefault();
+    $('#close-room-btn').prop('disabled', true);        
+    connection.attachStreams.forEach(function(localStream) {
+      localStream.stop();
+  });
     connection.close();
     $('.profile').show();
     $('.share-room').show();
