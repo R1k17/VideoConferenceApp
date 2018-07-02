@@ -64,7 +64,9 @@ function getTokenFromApi(username, password, callback) {
 }
 
 function displayVideoRoom(data) {
+  roomid.value = connection.token();
   $('.video-room').show();  
+  $('#form').show();
   $('#nav-username').html(`Howdy ${data.userDisplay.username}!`);
   $('#sidenav-username').html(`Howdy ${data.userDisplay.username}!`);
   $('#nav-logout').html(`Logout`);
@@ -117,6 +119,7 @@ function displayVideoRoom(data) {
   });  
   $('#btn-open-or-join-room').on('click', function (event) {
   event.preventDefault();
+  $('#close-room-btn').prop('disabled', false);
   $('.profile').hide();
   $('.share-room').hide();
   $('.edit-profile').hide();
@@ -146,14 +149,16 @@ function displayVideoRoom(data) {
     $('.login-page').hide();
     $('#btn-open-or-join-room').prop('disabled', false);
     $('#btn-open-or-join-room').html(`Open Or Join Room`);
+    $('#close-room-btn').prop('disabled', true);
     $('#close-room-btn').hide();
-    
+
     $('.video-room').hide();  
     $('.login-page').show();
     $('#nav-username').html('');
     $('#sidenav-username').html('');
     $('#nav-logout').html('');
     $('#sidenav-logout').html('');
+    $('.new-user').hide();
     $('.new-user').html('');
    });
  $('#sidenav-logout').on('click', function(){
@@ -167,6 +172,7 @@ function displayVideoRoom(data) {
     $('.login-page').hide();
     $('#btn-open-or-join-room').prop('disabled', false);
     $('#btn-open-or-join-room').html(`Open Or Join Room`);
+    $('#close-room-btn').prop('disabled', true);
     $('#close-room-btn').hide();
 
     $('.video-room').hide();

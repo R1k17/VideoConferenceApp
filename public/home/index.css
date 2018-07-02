@@ -2,7 +2,7 @@
 
 .login-page {
   margin-top: 20px;
-  display: none
+  display: none;
 }
 .form {
   position: relative;
@@ -43,7 +43,7 @@
   color: #4CAF50;
   text-decoration: none;
 }
-.form .register-form {
+.register-form {
   display: none;
 }
 
