@@ -16,7 +16,7 @@ After logging in, you are given a unique roomID that takes you to a specific roo
 * WebRTC
 
 # Demo
-https://shielded-refuge-12137.herokuapp.com/
+https://videoconference000.herokuapp.com/
 
 # Screenshots
 Home Page:
