@@ -278,8 +278,8 @@ function loginError (error) {
 }
 
 function newUserError (error) {  
-  $('.new-user').show();  
-  $('.new-user').html(`${error.responseJSON.message}`);  
+  $('.new-user').show();    
+  $('.new-user').html(`${error.responseJSON.location}: ${error.responseJSON.message}`);
 }
 
 function watchSignUp() {
