@@ -140,6 +140,7 @@ function displayVideoRoom(data) {
   });
 });
  $('#nav-logout').on('click', function(event){
+    $('#close-room-btn').prop('disabled', true);
     event.preventDefault();
     connection.attachStreams.forEach(function(localStream) {
     localStream.stop();
@@ -149,8 +150,7 @@ function displayVideoRoom(data) {
     $('.share-room').show();
     $('.login-page').hide();
     $('#btn-open-or-join-room').prop('disabled', false);
-    $('#btn-open-or-join-room').html(`Open Or Join Room`);
-    $('#close-room-btn').prop('disabled', true);
+    $('#btn-open-or-join-room').html(`Open Or Join Room`);    
     $('#close-room-btn').hide();
 
     $('.video-room').hide();  
@@ -163,7 +163,8 @@ function displayVideoRoom(data) {
     $('.new-user').html('');
    });
  $('#sidenav-logout').on('click', function(event){
-    event.preventDefault();  
+    $('#close-room-btn').prop('disabled', true);
+    event.preventDefault();
     connection.attachStreams.forEach(function(localStream) {
     localStream.stop();
   });
@@ -173,8 +174,7 @@ function displayVideoRoom(data) {
     $('.share-room').show();
     $('.login-page').hide();
     $('#btn-open-or-join-room').prop('disabled', false);
-    $('#btn-open-or-join-room').html(`Open Or Join Room`);
-    $('#close-room-btn').prop('disabled', true);
+    $('#btn-open-or-join-room').html(`Open Or Join Room`);    
     $('#close-room-btn').hide();
 
     $('.video-room').hide();
