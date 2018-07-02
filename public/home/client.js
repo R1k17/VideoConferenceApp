@@ -64,7 +64,7 @@ function getTokenFromApi(username, password, callback) {
 }
 
 function displayVideoRoom(data) {
-  $('.video-room').show();
+  $('.video-room').show();  
   $('#nav-username').html(`Howdy ${data.userDisplay.username}!`);
   $('#sidenav-username').html(`Howdy ${data.userDisplay.username}!`);
   $('#nav-logout').html(`Logout`);
@@ -140,29 +140,43 @@ function displayVideoRoom(data) {
     connection.attachStreams.forEach(function(localStream) {
     localStream.stop();
   });
-    connection.close();  
-  $('.video-room').hide();
-  $('.login-page').show();
-  $('#nav-username').html('');
-  $('#sidenav-username').html('');
-  $('#nav-logout').html('');
-  $('#sidenav-logout').html('');
-  $('.new-user').html('');
- });
+    connection.close();
+    $('.profile').show();
+    $('.share-room').show();
+    $('.login-page').hide();
+    $('#btn-open-or-join-room').prop('disabled', false);
+    $('#btn-open-or-join-room').html(`Open Or Join Room`);
+    $('#close-room-btn').hide();
+    
+    $('.video-room').hide();  
+    $('.login-page').show();
+    $('#nav-username').html('');
+    $('#sidenav-username').html('');
+    $('#nav-logout').html('');
+    $('#sidenav-logout').html('');
+    $('.new-user').html('');
+   });
  $('#sidenav-logout').on('click', function(){
     connection.attachStreams.forEach(function(localStream) {
     localStream.stop();
   });
-    connection.close();  
-  $('.video-room').hide();
-  $('.login-page').show();
-  $('#nav-username').html('');
-  $('#sidenav-username').html('');
-  $('#nav-logout').html('');
-  $('#sidenav-logout').html('');
-  $('.new-user').html('');
- });
+    connection.close();
 
+    $('.profile').show();
+    $('.share-room').show();
+    $('.login-page').hide();
+    $('#btn-open-or-join-room').prop('disabled', false);
+    $('#btn-open-or-join-room').html(`Open Or Join Room`);
+    $('#close-room-btn').hide();
+
+    $('.video-room').hide();
+    $('.login-page').show();
+    $('#nav-username').html('');
+    $('#sidenav-username').html('');
+    $('#nav-logout').html('');
+    $('#sidenav-logout').html('');
+    $('.new-user').html('');
+   });
 }
 
 function displayDeletedProfile(data) {  
