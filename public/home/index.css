@@ -78,7 +78,7 @@
 
 body {
   height: 100%;
-  background-image:url('http://traversymedia.com/downloads/assets/beachshowcase.jpg');
+  background-image:url('beachshowcase.jpg');
   background-size:cover;
   background-position:center;
   background-repeat: no-repeat;
